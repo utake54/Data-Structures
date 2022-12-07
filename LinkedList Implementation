@@ -1,0 +1,126 @@
+
+public class LinkedList {
+
+	class Node {
+		int value;
+		Node next;
+
+		Node(int value) {
+			this.value = value;
+			this.next = null;
+		}
+	}
+
+	private Node head;
+	private Node tail;
+
+	// addnodesmethod
+	// add at first
+
+	public void addAtFirst(int value) {
+		if (head == null) {
+			head = new Node(value);
+			tail = head;
+		}
+		Node newnode = new Node(value);
+		newnode.next = head;
+		head = newnode;
+	}
+
+	// add at last
+	public void addAtLast(int value) {
+		if (head == null) {
+			head = new Node(value);
+			tail = head;
+		}
+
+		Node newnode = new Node(value);
+		tail.next = newnode;
+		tail = newnode;
+	}
+
+	// add at given position
+	public void addAtPosition(int value, int position) {
+		if (position == 1) {
+			addAtFirst(value);
+		}
+		int count = 0;
+		Node current = head;
+		while (count < position - 1) {
+			count++;
+			current = current.next;
+		}
+
+		Node newNode = new Node(value);
+		newNode.next = current.next;
+		current.next = newNode;
+
+	}
+
+	// search
+	public void search(int value) {
+		Node current = head;
+		while (current != null) {
+			if (value == current.value) {
+				System.out.println("Element found");
+			}
+			current = current.next;
+		}
+		
+		
+	}
+
+	// deletion
+	public void deleteAtFirst() {
+		if (head == null) {
+			throw new RuntimeException("List is Empty");
+		}
+
+		Node current = head;
+		head = head.next;
+		current.next = null;
+		if (head == null) {
+			tail = null;
+		}
+	}
+
+	// delete at last
+	public void deleteAtLast() {
+		if (head == null) {
+			throw new RuntimeException("List is Empty");
+		}
+
+		Node current = head;
+		Node prev = null;
+		while (current.next != null) {
+			prev = current;
+			current = current.next;
+		}
+		prev.next = null;
+		tail = prev;
+	}
+
+	// printmethod
+	public void printAll() {
+		Node current = head;
+
+		while (current != null) {
+
+			System.out.print(current.value + " -> ");
+			current = current.next;
+		}
+
+	}
+
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		System.out.println("After adding at first position ");
+		list.addAtFirst(5);
+		list.addAtLast(10);
+		list.addAtPosition(15, 2);
+		list.deleteAtFirst();
+		list.deleteAtLast();
+		list.printAll();
+		list.search(15);
+	}
+}
